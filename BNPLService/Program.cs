@@ -6,8 +6,11 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
-
-builder.Services.AddSingleton<BNPLManager>();
+builder.Services.AddHttpClient();
+builder.Services.AddSingleton<BNPLManager>(s => 
+{ var httpClientFactory = s.GetRequiredService<HttpClientFactory>();
+    return new BNPLManager(httpClientFactory.CreateClient());
+});
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
