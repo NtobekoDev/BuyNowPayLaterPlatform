@@ -1,27 +1,34 @@
 ﻿using UserService.Models;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.OpenApi.Models; // Add this using directive at the top of the file
+using Microsoft.OpenApi.Models; 
 using Swashbuckle.AspNetCore.SwaggerGen;
+using UserService.Data;
 
 namespace UserService.Services
 {
     public class UserService
     {
-        private readonly List<User> users = new(); // In-memory list to store users
+        private readonly UserDbContext _context;
+
+        public UserService(UserDbContext context)
+        {
+            _context = context;
+        }
         public IEnumerable<User> GetAllUsers()
         {
-            return users; // Returns all users
+            return _context.Users.ToList(); // Returns all users
         }
 
         public User Create(string name, string email)
         {
-                       var user = new User
+        var user = new User
             {
                 Id = Guid.NewGuid(), // Generate a new unique identifier for the user
                 Name = name,
                 Email = email
             };
-            users.Add(user); // Add the new user to the in-memory list
+            _context.Users.Add(user); 
+            _context.SaveChanges();
             return user; // Return the created user
         }
     }

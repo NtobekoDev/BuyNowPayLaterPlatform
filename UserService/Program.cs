@@ -1,9 +1,18 @@
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Internal;
+using UserService.Data;
+
 var builder = WebApplication.CreateBuilder(args);
 
+
+builder.Services.AddDbContext<UserDbContext>( options => 
+options.UseSqlServer(builder.Configuration.GetConnectionString("UserDbConnection")) );
+    
 // Add services to the container.
 builder.Services.AddControllers();
 
-builder.Services.AddSingleton<UserService.Services.UserService>(); // Register UserService as a singleton
+builder.Services.AddScoped<UserService.Services.UserService>(); 
+
 
 // Add Swagger support
 builder.Services.AddOpenApi();
