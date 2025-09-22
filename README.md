@@ -43,7 +43,6 @@ Each service is a stand alone ASP .NET Core Web API project with its own control
 
 ## Next Steps
 I am still to add the following functionalities to the platform
-- Add EF Core for data persistence
 - Implement authentication and authorisation
 - Introduce message queues(e.g. RabbitMQ) for async communication
 - Dockerise services for deployment
