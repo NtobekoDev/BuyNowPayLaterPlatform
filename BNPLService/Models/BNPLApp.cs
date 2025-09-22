@@ -7,6 +7,6 @@ namespace BNPLService.Models
         public Guid UserId { get; set; }
         public Guid ProductId { get; set; }
         public DateTime CreatedAt { get; set; }
-        public string Status { get; set; } // e.g., "Pending", "Approved", "Rejected"
+        public string? Status { get; set; } // e.g., "Pending", "Approved", "Rejected"
     }
 }
